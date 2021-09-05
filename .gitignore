@@ -88,6 +88,8 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 
+[Bb][Uu][Ii][Ll][Dd]/
+
 ### CMake Patch ###
 # External projects
 *-prefix/
