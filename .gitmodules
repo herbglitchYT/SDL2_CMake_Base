@@ -1,3 +1,0 @@
-[submodule "external/sdl"]
-	path = external/sdl
-	url = https://github.com/libsdl-org/SDL.git

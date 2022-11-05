@@ -1,28 +1,26 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(SUPPORT_JPG OFF)
+project(base)
 
-project(sdl_cmake)
-
-add_executable(${PROJECT_NAME}
+add_executable(base
     src/main.cpp
 )
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+if(NOT PNG AND WIN32 AND NOT MSVC)
+    set(PNG_LIBRARY "C:/Program Files(x86)/libpng")
+    set(PNG_PNG_INCLUDE_DIR "C:/Program Files(x86)/libpng/include")
+endif()
 
-add_subdirectory(external/sdl)
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
 
-target_include_directories(${PROJECT_NAME}
-    PUBLIC external/sdl/include
-)
-
-target_link_directories(${PROJECT_NAME}
-    PUBLIC external/sdl
+target_include_directories(base
+    PUBLIC ${SDL2_INCLUDE_DIRS}
+    PUBLIC ${SDL2IMAGE_INCLUDE_DIRS}
 )
 
 if(WIN32 AND NOT MSVC)
-    target_link_libraries(${PROJECT_NAME} mingw32 SDL2main SDL2)
+    target_link_libraries(base PUBLIC ${SDL2_LIBRARIES} SDL2_image::SDL2_image mingw32)
 else()
-    target_link_libraries(${PROJECT_NAME} SDL2main SDL2)
+    target_link_libraries(base PUBLIC ${SDL2_LIBRARIES} SDL2_image::SDL2_image)
 endif()
